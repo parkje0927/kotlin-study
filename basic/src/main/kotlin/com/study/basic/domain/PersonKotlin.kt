@@ -1,6 +1,6 @@
-package com.study.basic
+package com.study.basic.domain
 
-class Person (
+class PersonKotlin (
     private var name: String
 )
 {
