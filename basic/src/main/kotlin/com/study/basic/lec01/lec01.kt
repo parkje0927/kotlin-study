@@ -48,6 +48,6 @@ fun main() {
      * Java => Person person = new Person("abc");
      * Kotlin => new 를 쓰지 않음.
      */
-    var person = PersonKotlin("abc")
+    var person = PersonKotlin("abc", 100)
 
 }

@@ -1,9 +1,9 @@
 package com.study.basic.domain
 
-class PersonKotlin (
-    private var name: String
-)
-{
+class PersonKotlin(
+    var name: String,
+    var age: Any
+) {
     init {
         println()
     }
