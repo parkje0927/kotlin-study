@@ -1,8 +1,6 @@
 package com.study.basic.lec02
 
 import com.study.basic.domain.PersonJava
-import com.study.basic.domain.PersonKotlin
-import java.lang.IllegalArgumentException
 
 fun main() {
 
