@@ -1,6 +1,6 @@
 package com.study.basic.lec01
 
-import com.study.basic.domain.PersonKotlin
+import com.study.basic.domain.KotlinPerson
 
 fun main() {
 
@@ -48,6 +48,6 @@ fun main() {
      * Java => Person person = new Person("abc");
      * Kotlin => new 를 쓰지 않음.
      */
-    var person = PersonKotlin("abc", 100)
+    var person = KotlinPerson("abc", 100)
 
 }

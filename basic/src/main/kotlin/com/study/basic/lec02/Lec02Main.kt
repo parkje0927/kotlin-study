@@ -1,6 +1,6 @@
 package com.study.basic.lec02
 
-import com.study.basic.domain.PersonJava
+import com.study.basic.domain.JavaPerson
 
 fun main() {
 
@@ -33,7 +33,7 @@ fun main() {
     //혹은 Nullable 인데 아래와 같이 str 에 대해 safe call 을 하지 않을 경우 오류가 발생한다.
     //따라서 어노테이션을 잘 붙여주고, 이를 safe call 실행해주면 좋다.
     //-> Java 코드를 읽으며 null 가능성을 확인하거나 Kotlin 으로 wrapping 해서 자바 코드 가져오는 것을 최소화하자
-    val person = PersonJava(null)
+    val person = JavaPerson(null)
     startsWithA(person.name)
 }
 

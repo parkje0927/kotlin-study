@@ -1,6 +1,6 @@
 package com.study.basic.domain
 
-class PersonKotlin(
+class KotlinPerson(
     var name: String,
     var age: Any
 ) {

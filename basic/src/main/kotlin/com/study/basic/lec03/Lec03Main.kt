@@ -1,6 +1,6 @@
 package com.study.basic.lec03
 
-import com.study.basic.domain.PersonKotlin
+import com.study.basic.domain.KotlinPerson
 
 fun main() {
 
@@ -48,7 +48,7 @@ fun main() {
      */
 
     //4. String Interpolation, String indexing
-    val person = PersonKotlin("test", 100)
+    val person = KotlinPerson("test", 100)
     val log = "이름 : ${person.name} 나이 : ${person.age}"
     println(log)
 
@@ -67,16 +67,16 @@ fun main() {
 
 //2. 타입 캐스팅
 fun printAgeIfPerson(obj: Any) {
-    if (obj is PersonKotlin) {
+    if (obj is KotlinPerson) {
 //        val person = obj as PersonKotlin //java 의 (Person) obj 와 같은 의미이다. 이는 val person = obj 라고 써도 무방하다.
         println(obj.age)
-    } else if (obj !is PersonKotlin) {
+    } else if (obj !is KotlinPerson) {
 
     }
 }
 
 fun printAgeIfPerson2(obj: Any?) {
-    val person = obj as? PersonKotlin
+    val person = obj as? KotlinPerson
     println(person?.age)
 }
 
