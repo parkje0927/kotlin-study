@@ -16,7 +16,7 @@ class PersonV2(
         return this.name.uppercase()
     }
 
-    val uppercaseName: String
+    val uppercaseName1: String
         get() = this.name.uppercase()
 
     init {

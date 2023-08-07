@@ -62,7 +62,7 @@ class Person(
     }
 
     //custom getter
-    val isAdult: Boolean
+    val isAdult1: Boolean
         get() = this.age >= 20
 
     val isAdult2: Boolean
