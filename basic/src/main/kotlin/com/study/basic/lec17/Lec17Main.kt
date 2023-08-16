@@ -47,7 +47,7 @@ private fun filterFruits(
 
 class Fruit(
     var name: String,
-    var prive: Int
+    var price: Int
 )
 
 /**
@@ -58,6 +58,6 @@ class Fruit(
  * 코틀린은 그렇지 않다. 코틀린에서는 람다가 시작하는 지점에 참조하고 있는 변수들을 모두 포획하여 그 정보를 가지고 있다.
  * 이렇게 해야만 람다를 진정한 일급 시민으로 간주할 수 있다. 이 데이터 구조를 Closure 라고 부른다.
  * Closure 를 사용하여 non-final 변수도 람다에서 사용할 수 있다.
- * 
+ *
  * - use
  */
