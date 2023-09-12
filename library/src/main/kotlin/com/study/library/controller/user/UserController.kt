@@ -21,6 +21,10 @@ class UserController(
         return userService.getUsers()
     }
 
+    //아래 코드도 가능
+//    @GetMapping("/user")
+//    fun getUsers(): List<UserResponse> = userService.getUsers()
+
     @PutMapping("/user")
     fun updateUserName(@RequestBody userUpdateRequest: UserUpdateRequest) {
         userService.updateUserName(userUpdateRequest)
