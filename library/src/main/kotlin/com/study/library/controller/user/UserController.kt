@@ -30,6 +30,8 @@ class UserController(
         userService.updateUserName(userUpdateRequest)
     }
 
+    //String? 으로 하면 required=false 가 된다.
+    //그런데, ? 을 빼면 required=true 이다.
     @DeleteMapping("/user")
     fun deleteUser(@RequestParam name: String) {
         userService.deleteUser(name)

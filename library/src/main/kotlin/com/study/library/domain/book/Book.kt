@@ -23,3 +23,25 @@ class Book(
         }
     }
 }
+
+/**
+ * 1. backing property 사용하기
+ *
+ * ```
+ * class User(
+ *  private var _name: String
+ * ) {
+ *  val name: String
+ *      get() = this._name
+ * }
+ * ```
+ *
+ * 2. custom setter 이용하기
+ * class User(
+ *  name: String
+ * ) {
+ *  var name = name
+ *      private set
+ *
+ * -> 두 방법 모두 복잡하다.
+ */
