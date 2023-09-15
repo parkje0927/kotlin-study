@@ -11,6 +11,7 @@ class Book(
 
     //바뀌지 않음, null 허용 X
     val name: String,
+    val type: String,
 
     //바뀌지 않음, null 허용, 초기값 null, 디폴트 파라미터는 가장 아래에 두는 게 관례
     @Id
@@ -20,6 +21,22 @@ class Book(
     init {
         if (name.isBlank()) {
             throw IllegalArgumentException("이름은 비어있을 수 없습니다.")
+        }
+    }
+
+    //companion object 는 가장 아래에 적는 게 컨벤션
+    //새로운 field 가 추가가 되어도 test 코드에 전파가 되지 않는다.
+    companion object {
+        fun fixture(
+            name: String = "이름",
+            type: String = "Computer",
+            id: Long? = null,
+        ): Book {
+            return Book(
+                name = name,
+                type = type,
+                id = id
+            )
         }
     }
 }
