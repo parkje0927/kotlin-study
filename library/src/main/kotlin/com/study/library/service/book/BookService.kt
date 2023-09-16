@@ -4,6 +4,7 @@ import com.study.library.domain.book.Book
 import com.study.library.domain.book.BookRepository
 import com.study.library.domain.user.UserRepository
 import com.study.library.domain.user.loanhistory.UserLoanHistoryRepository
+import com.study.library.domain.user.loanhistory.UserLoanStatus
 import com.study.library.dto.book.request.BookLoanRequest
 import com.study.library.dto.book.request.BookRequest
 import com.study.library.dto.book.request.BookReturnRequest
@@ -38,7 +39,7 @@ class BookService(
 //        val book = bookRepository.findByName(request.bookName).orElseThrow(::IllegalArgumentException)
 //        val book = bookRepository.findByName(request.bookName) ?: throw IllegalArgumentException()
         val book = bookRepository.findByName(request.bookName) ?: fail()
-        if (userLoanHistoryRepository.findByBookNameAndIsReturn(request.bookName, false) != null) {
+        if (userLoanHistoryRepository.findByBookNameAndStatus(request.bookName, UserLoanStatus.LOANED) != null) {
             throw IllegalArgumentException("이미 대출된 책입니다.")
         }
 
