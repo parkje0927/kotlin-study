@@ -1,9 +1,6 @@
 package com.study.library.domain.book
 
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
+import jakarta.persistence.*
 
 @Entity
 class Book(
@@ -11,7 +8,9 @@ class Book(
 
     //바뀌지 않음, null 허용 X
     val name: String,
-    val type: String,
+
+    @Enumerated(EnumType.STRING)
+    val type: BookType,
 
     //바뀌지 않음, null 허용, 초기값 null, 디폴트 파라미터는 가장 아래에 두는 게 관례
     @Id
@@ -29,7 +28,7 @@ class Book(
     companion object {
         fun fixture(
             name: String = "이름",
-            type: String = "Computer",
+            type: BookType = BookType.COMPUTER,
             id: Long? = null,
         ): Book {
             return Book(
