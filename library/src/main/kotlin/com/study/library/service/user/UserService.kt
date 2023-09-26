@@ -2,10 +2,8 @@ package com.study.library.service.user
 
 import com.study.library.domain.user.User
 import com.study.library.domain.user.UserRepository
-import com.study.library.domain.user.loanhistory.UserLoanStatus
 import com.study.library.dto.user.request.UserCreateRequest
 import com.study.library.dto.user.request.UserUpdateRequest
-import com.study.library.dto.user.response.BookHistoryResponse
 import com.study.library.dto.user.response.UserLoanHistoryResponse
 import com.study.library.dto.user.response.UserResponse
 import com.study.library.util.fail
@@ -66,20 +64,34 @@ class UserService(
         userRepository.delete(user)
     }
 
-    //모든 유저 조회 : 쿼리 1회
-    //loop 를 통해 유저별 히스토리 조회 : 쿼리 N회
+    /**
+     * findAll 사용 시 ->
+     * 모든 유저 조회 : 쿼리 1회
+     * loop 를 통해 유저별 히스토리 조회 : 쿼리 N회
+     */
     @Transactional(readOnly = true)
     fun getUserLoanHistories(): List<UserLoanHistoryResponse> {
-        return userRepository.findAllWithHistories().map { user ->
-            UserLoanHistoryResponse(
-                name = user.name,
-                books = user.userLoanHistories.map { history ->
-                    BookHistoryResponse(
-                        name = history.bookName,
-                        isReturn = history.status == UserLoanStatus.RETURNED
-                    )
-                }
-            )
-        }
+//        return userRepository.findAllWithHistories().map { user ->
+//            UserLoanHistoryResponse(
+//                name = user.name,
+//                books = user.userLoanHistories.map { history ->
+//                    BookHistoryResponse(
+//                        name = history.bookName,
+//                        isReturn = history.status == UserLoanStatus.RETURNED
+//                    )
+//                }
+//            )
+//        }
+
+        //정적 팩토리 메소드 사용 + 메소드 레퍼런스 1차
+//        return userRepository.findAllWithHistories().map { user ->
+//            UserLoanHistoryResponse(
+//                name = user.name,
+//                books = user.userLoanHistories.map(BookHistoryResponse::of)
+//            )
+//        }
+
+        //정적 팩토리 메소드 사용 + 메소드 레퍼런스로 완성
+        return userRepository.findAllWithHistories().map(UserLoanHistoryResponse::of)
     }
 }

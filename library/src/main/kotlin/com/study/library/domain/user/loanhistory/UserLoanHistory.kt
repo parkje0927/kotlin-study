@@ -18,6 +18,9 @@ class UserLoanHistory(
     val id: Long? = null
 ) {
 
+    val isReturned: Boolean
+        get() = this.status == UserLoanStatus.RETURNED
+
     fun doReturn() {
         this.status = UserLoanStatus.RETURNED
     }
@@ -27,7 +30,7 @@ class UserLoanHistory(
             user: User,
             bookName: String,
             status: UserLoanStatus = UserLoanStatus.LOANED,
-            id: Long ?= null
+            id: Long? = null
         ): UserLoanHistory {
             return UserLoanHistory(
                 user = user,
