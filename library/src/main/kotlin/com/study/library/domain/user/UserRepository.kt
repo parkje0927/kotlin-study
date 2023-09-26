@@ -1,6 +1,7 @@
 package com.study.library.domain.user
 
 import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.data.jpa.repository.Query
 
 interface UserRepository : JpaRepository<User, Long> {
 
@@ -9,4 +10,25 @@ interface UserRepository : JpaRepository<User, Long> {
      * Optional<User> -> User? 로 변경해주면 null 혹은 실제 User 값을 넣어준다.
      */
     fun findByName(name: String): User?
+
+    /**
+     * 대출 기록이 없는 유저도 조회 => left join
+     * fetch => join 한번만 쓰는 쿼리가 나간다.
+     *
+     * select
+     *         distinct u1_0.id,
+     *         u1_0.age,
+     *         u1_0.name,
+     *         u2_0.user_id,
+     *         u2_0.id,
+     *         u2_0.book_name,
+     *         u2_0.status
+     *     from
+     *         user u1_0
+     *     left join
+     *         user_loan_history u2_0
+     *             on u1_0.id=u2_0.user_id
+     */
+    @Query("select distinct u from User u left join fetch u.userLoanHistories")
+    fun findAllWithHistories(): List<User>
 }

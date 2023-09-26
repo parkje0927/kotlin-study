@@ -70,7 +70,7 @@ class UserService(
     //loop 를 통해 유저별 히스토리 조회 : 쿼리 N회
     @Transactional(readOnly = true)
     fun getUserLoanHistories(): List<UserLoanHistoryResponse> {
-        return userRepository.findAll().map { user ->
+        return userRepository.findAllWithHistories().map { user ->
             UserLoanHistoryResponse(
                 name = user.name,
                 books = user.userLoanHistories.map { history ->
