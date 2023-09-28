@@ -1,7 +1,7 @@
 package com.study.library.dto.user.response
 
 import com.study.library.domain.user.User
-import com.study.library.domain.user.loanhistory.UserLoanHistory
+import com.study.library.domain.user.UserLoanHistory
 
 data class UserLoanHistoryResponse(
     val name: String, //username

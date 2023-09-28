@@ -3,8 +3,8 @@ package com.study.library.service.book
 import com.study.library.domain.book.Book
 import com.study.library.domain.book.BookRepository
 import com.study.library.domain.user.UserRepository
-import com.study.library.domain.user.loanhistory.UserLoanHistoryRepository
-import com.study.library.domain.user.loanhistory.UserLoanStatus
+import com.study.library.domain.user.UserLoanHistoryRepository
+import com.study.library.domain.user.UserLoanStatus
 import com.study.library.dto.book.request.BookLoanRequest
 import com.study.library.dto.book.request.BookRequest
 import com.study.library.dto.book.request.BookReturnRequest

@@ -1,6 +1,5 @@
-package com.study.library.domain.user.loanhistory
+package com.study.library.domain.user
 
-import com.study.library.domain.user.User
 import jakarta.persistence.*
 
 @Entity

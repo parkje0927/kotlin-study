@@ -5,9 +5,9 @@ import com.study.library.domain.book.BookRepository
 import com.study.library.domain.book.BookType
 import com.study.library.domain.user.User
 import com.study.library.domain.user.UserRepository
-import com.study.library.domain.user.loanhistory.UserLoanHistory
-import com.study.library.domain.user.loanhistory.UserLoanHistoryRepository
-import com.study.library.domain.user.loanhistory.UserLoanStatus
+import com.study.library.domain.user.UserLoanHistory
+import com.study.library.domain.user.UserLoanHistoryRepository
+import com.study.library.domain.user.UserLoanStatus
 import com.study.library.dto.book.request.BookLoanRequest
 import com.study.library.dto.book.request.BookRequest
 import com.study.library.dto.book.request.BookReturnRequest

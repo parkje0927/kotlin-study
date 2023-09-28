@@ -1,4 +1,4 @@
-package com.study.library.domain.user.loanhistory
+package com.study.library.domain.user
 
 import org.springframework.data.jpa.repository.JpaRepository
 

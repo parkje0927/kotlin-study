@@ -1,7 +1,6 @@
 package com.study.library.domain.user
 
 import com.study.library.domain.book.Book
-import com.study.library.domain.user.loanhistory.UserLoanHistory
 import jakarta.persistence.*
 
 /**
