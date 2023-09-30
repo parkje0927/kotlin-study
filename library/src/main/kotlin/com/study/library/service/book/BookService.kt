@@ -61,8 +61,9 @@ class BookService(
 
     @Transactional(readOnly = true)
     fun findBookStatistics(): List<BookStatisticsResponse> {
-        val results = mutableListOf<BookStatisticsResponse>()
-        val books = bookRepository.findAll()
+//        val results = mutableListOf<BookStatisticsResponse>()
+//        val books = bookRepository.findAll()
+
 //        for (book in books) {
 //            //만들어 둔 응답 dto 결과에 book type 이 있다면 1을 더해주고, 없다면 새로 넣어준다.
 //            val targetDto = results.firstOrNull { dto -> book.type == dto.type }
@@ -72,15 +73,19 @@ class BookService(
 //                targetDto.plusOne()
 //            }
 //        }
+//        return results
 
-        for (book in books) {
-            //?. => null 이 아닌 경우(존재하는 경우) plusOne
-            //?: => 그렇지 않으면(존재하지 않은 경우) 새로 만들어준다.
-            results.firstOrNull { dto -> dto.type == book.type }?.plusOne()
-                ?: results.add(BookStatisticsResponse(book.type, 1))
-        }
+//        for (book in books) {
+//            //?. => null 이 아닌 경우(존재하는 경우) plusOne
+//            //?: => 그렇지 않으면(존재하지 않은 경우) 새로 만들어준다.
+//            results.firstOrNull { dto -> dto.type == book.type }?.plusOne()
+//                ?: results.add(BookStatisticsResponse(book.type, 1))
+//        }
+//        return results
 
-        return results
+        return bookRepository.findAll()
+            .groupBy { book -> book.type } //Map<BookType, List<Book>>
+            .map { (type, books) -> BookStatisticsResponse(type, books.size) }
     }
 
 }
