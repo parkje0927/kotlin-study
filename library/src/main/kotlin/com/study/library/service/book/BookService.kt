@@ -2,12 +2,13 @@ package com.study.library.service.book
 
 import com.study.library.domain.book.Book
 import com.study.library.domain.book.BookRepository
-import com.study.library.domain.user.UserRepository
 import com.study.library.domain.user.UserLoanHistoryRepository
 import com.study.library.domain.user.UserLoanStatus
+import com.study.library.domain.user.UserRepository
 import com.study.library.dto.book.request.BookLoanRequest
 import com.study.library.dto.book.request.BookRequest
 import com.study.library.dto.book.request.BookReturnRequest
+import com.study.library.dto.book.response.BookStatisticsResponse
 import com.study.library.util.fail
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -51,6 +52,35 @@ class BookService(
     fun returnBook(request: BookReturnRequest) {
         val user = userRepository.findByName(request.userName) ?: fail()
         user.returnBook(request.bookName)
+    }
+
+    @Transactional(readOnly = true)
+    fun countLoanedBook(): Int {
+        return userLoanHistoryRepository.findAllByStatus(UserLoanStatus.LOANED).size
+    }
+
+    @Transactional(readOnly = true)
+    fun findBookStatistics(): List<BookStatisticsResponse> {
+        val results = mutableListOf<BookStatisticsResponse>()
+        val books = bookRepository.findAll()
+//        for (book in books) {
+//            //만들어 둔 응답 dto 결과에 book type 이 있다면 1을 더해주고, 없다면 새로 넣어준다.
+//            val targetDto = results.firstOrNull { dto -> book.type == dto.type }
+//            if (targetDto == null) {
+//                results.add(BookStatisticsResponse(book.type, 1))
+//            } else {
+//                targetDto.plusOne()
+//            }
+//        }
+
+        for (book in books) {
+            //?. => null 이 아닌 경우(존재하는 경우) plusOne
+            //?: => 그렇지 않으면(존재하지 않은 경우) 새로 만들어준다.
+            results.firstOrNull { dto -> dto.type == book.type }?.plusOne()
+                ?: results.add(BookStatisticsResponse(book.type, 1))
+        }
+
+        return results
     }
 
 }
