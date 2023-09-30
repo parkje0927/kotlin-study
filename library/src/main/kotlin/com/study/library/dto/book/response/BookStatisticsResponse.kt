@@ -4,7 +4,7 @@ import com.study.library.domain.book.BookType
 
 data class BookStatisticsResponse(
     val type: BookType,
-    val count: Int
+    val count: Long
 ) {
 //    fun plusOne() {
 //        count++

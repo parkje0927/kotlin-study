@@ -56,11 +56,22 @@ class BookService(
 
     @Transactional(readOnly = true)
     fun countLoanedBook(): Int {
-        return userLoanHistoryRepository.findAllByStatus(UserLoanStatus.LOANED).size
+        /**
+         * DB 로 부터 숫자를 가져와 적절히 타입을 변환해준다.
+         * => count 쿼리, 타입 변환
+         */
+        return userLoanHistoryRepository.countByStatus(UserLoanStatus.LOANED).toInt()
+
+        /**
+         * DB 에 존재하는 데이터를 모두 가져와서 애플리케이션이(메모리 사용) 그 size 를 계산한다.
+         * => 전체 데이터 쿼리, 메모리 로딩 + size
+         */
+//        return userLoanHistoryRepository.findAllByStatus(UserLoanStatus.LOANED).size
     }
 
     @Transactional(readOnly = true)
     fun findBookStatistics(): List<BookStatisticsResponse> {
+        //1단계 refactoring
 //        val results = mutableListOf<BookStatisticsResponse>()
 //        val books = bookRepository.findAll()
 
@@ -75,6 +86,9 @@ class BookService(
 //        }
 //        return results
 
+        //2단계 refactoring
+//        val results = mutableListOf<BookStatisticsResponse>()
+//        val books = bookRepository.findAll()
 //        for (book in books) {
 //            //?. => null 이 아닌 경우(존재하는 경우) plusOne
 //            //?: => 그렇지 않으면(존재하지 않은 경우) 새로 만들어준다.
@@ -83,9 +97,17 @@ class BookService(
 //        }
 //        return results
 
-        return bookRepository.findAll()
-            .groupBy { book -> book.type } //Map<BookType, List<Book>>
-            .map { (type, books) -> BookStatisticsResponse(type, books.size) }
+        //3단계 refactoring
+//        return bookRepository.findAll()
+//            .groupBy { book -> book.type } //Map<BookType, List<Book>>
+//            .map { (type, books) -> BookStatisticsResponse(type, books.size) }
+
+        //4단계 refactoring
+        /**
+         * 네트워크 부하, 애플리케이션 부하가 덜 든다.
+         * 하지만, 상황에 따라 최선의 방법은 다를 것
+         */
+        return bookRepository.findBookStatistics()
     }
 
 }
