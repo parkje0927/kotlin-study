@@ -32,9 +32,15 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    implementation("com.querydsl:querydsl-jpa:5.0.0")
-    kapt("com.querydsl:querydsl-apt:5.0.0:jpa")
-    kapt("org.springframework.boot:spring-boot-configuration-processor")
+
+    //querydsl
+    implementation ("com.querydsl:querydsl-jpa:5.0.0:jakarta")
+    kapt ("com.querydsl:querydsl-apt:5.0.0:jakarta")
+    kapt ("jakarta.annotation:jakarta.annotation-api")
+    kapt ("jakarta.persistence:jakarta.persistence-api")
+//    implementation("com.querydsl:querydsl-jpa:5.0.0")
+//    kapt("com.querydsl:querydsl-apt:5.0.0:jpa")
+//    kapt("org.springframework.boot:spring-boot-configuration-processor")
 
     compileOnly("org.projectlombok:lombok")
     runtimeOnly("com.mysql:mysql-connector-j")
