@@ -9,6 +9,8 @@ import com.study.library.dto.book.request.BookLoanRequest
 import com.study.library.dto.book.request.BookRequest
 import com.study.library.dto.book.request.BookReturnRequest
 import com.study.library.dto.book.response.BookStatisticsResponse
+import com.study.library.repository.book.BookQuerydslRepository
+import com.study.library.repository.user.UserLoanHistoryQuerydslRepository
 import com.study.library.util.fail
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -17,7 +19,9 @@ import org.springframework.transaction.annotation.Transactional
 class BookService(
     private val bookRepository: BookRepository,
     private val userRepository: UserRepository,
-    private val userLoanHistoryRepository: UserLoanHistoryRepository
+    private val userLoanHistoryRepository: UserLoanHistoryRepository,
+    private val bookQuerydslRepository: BookQuerydslRepository,
+    private val userLoanHistoryQuerydslRepository: UserLoanHistoryQuerydslRepository
 ) {
 
     /**
@@ -40,7 +44,11 @@ class BookService(
 //        val book = bookRepository.findByName(request.bookName).orElseThrow(::IllegalArgumentException)
 //        val book = bookRepository.findByName(request.bookName) ?: throw IllegalArgumentException()
         val book = bookRepository.findByName(request.bookName) ?: fail()
-        if (userLoanHistoryRepository.findByBookNameAndStatus(request.bookName, UserLoanStatus.LOANED) != null) {
+        if (userLoanHistoryQuerydslRepository.findByBookNameAndStatus(
+                request.bookName,
+                UserLoanStatus.LOANED
+            ) != null
+        ) {
             throw IllegalArgumentException("이미 대출된 책입니다.")
         }
 
@@ -60,7 +68,7 @@ class BookService(
          * DB 로 부터 숫자를 가져와 적절히 타입을 변환해준다.
          * => count 쿼리, 타입 변환
          */
-        return userLoanHistoryRepository.countByStatus(UserLoanStatus.LOANED).toInt()
+        return userLoanHistoryQuerydslRepository.countByStatus(UserLoanStatus.LOANED).toInt()
 
         /**
          * DB 에 존재하는 데이터를 모두 가져와서 애플리케이션이(메모리 사용) 그 size 를 계산한다.
@@ -107,7 +115,10 @@ class BookService(
          * 네트워크 부하, 애플리케이션 부하가 덜 든다.
          * 하지만, 상황에 따라 최선의 방법은 다를 것
          */
-        return bookRepository.findBookStatistics()
+//        return bookRepository.findBookStatistics()
+
+        //5단계 querydsl 사용
+        return bookQuerydslRepository.findBookStatistics()
     }
 
 }
