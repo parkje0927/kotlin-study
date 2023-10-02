@@ -1,9 +1,8 @@
 package com.study.library.domain.user
 
 import org.springframework.data.jpa.repository.JpaRepository
-import org.springframework.data.jpa.repository.Query
 
-interface UserRepository : JpaRepository<User, Long> {
+interface UserRepository : JpaRepository<User, Long>, UserRepositoryCustom {
 
     /**
      * 코틀린에서는 언어 자체의 타입 시스템이 물음표를 통해서 어떤 값이 널인지 아닌지 알려주기 때문에 Optional 이 필요가 없다.
@@ -29,6 +28,8 @@ interface UserRepository : JpaRepository<User, Long> {
      *         user_loan_history u2_0
      *             on u1_0.id=u2_0.user_id
      */
-    @Query("select distinct u from User u left join fetch u.userLoanHistories")
-    fun findAllWithHistories(): List<User>
+//    @Query("select distinct u from User u left join fetch u.userLoanHistories")
+//    fun findAllWithHistories(): List<User>
+
+    //-> querydsl 로 변경
 }
