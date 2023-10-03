@@ -1,10 +1,6 @@
 package com.study.library.service.user
 
-import com.study.library.domain.user.User
-import com.study.library.domain.user.UserRepository
-import com.study.library.domain.user.UserLoanHistory
-import com.study.library.domain.user.UserLoanHistoryRepository
-import com.study.library.domain.user.UserLoanStatus
+import com.study.library.domain.user.*
 import com.study.library.dto.user.request.UserCreateRequest
 import com.study.library.dto.user.request.UserUpdateRequest
 import org.assertj.core.api.Assertions.assertThat
@@ -171,5 +167,24 @@ class UserServiceTest @Autowired constructor(
         val userTest3Result = userLoanHistories.first { it.name == "test3" }
         assertThat(userTest3Result.books).isEmpty()
     }
+
+    /**
+     * 영속성 컨텍스트
+     * 방법 1)
+     * - @Transactional 어노테이션을 통해 트랜잭션이 생기게 되고 -> 영속성 컨텍스트가 존재하게 된다.
+     * -> 롤백이 가능해진다. 트랜잭션별로 테스트 격리가능하여 병렬 테스트도 가능 but 테스트 내성이 떨어진다.
+     * -> but 테스트 코드에서 @Transactional 사용하는 것을 추천
+     *
+     * 방법 2)
+     * - N 쪽의 Repository 를 사용한다. 그러면 @Transactional 이 없어도 테스트 성공한다.
+     *
+     * 방법 3)
+     * - 아니면 UserRepository 에서 user 정보 가져올 때 N 쪽인 UserLoanHistory 쪽도 가져오는 메소드인, findAllWithHistories 를 사용하여
+     * - user, userLoanHistory 를 한번에 가져오면 된다. but 1:N 관계가 여러개면 사용할 수 없다.
+     *
+     * 방법 4) txHelper 사용
+     * - 서비스 코드에서만 @Transactional 을 사용할 수 있고,
+     * - txHelper.execute 안에서는 @Transactional 이 존재하는 환경을 만들어줄 수 있다.
+     */
 
 }

@@ -11,6 +11,17 @@ import com.study.library.util.findByIdOrThrow
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
+/**
+ * Service 는 왜 open 되어야 하는가?
+ * 프록시 라는 것 때문이다. 자동으로 앞뒤로 transaction 이 붙는다.(tx.begin(), tx.commit(), tx.rollback 등)
+ * open 되어야만(스프링 플러그인을 사용해야만) -> 프록시, transactional 사용이 가능해진다.
+ *
+ * 프록시 객체가 먼저 불리고 그 다음 진짜 객체가 불린다.
+ * 예시)
+ * at com.study.library.service.user.UserService.saveUser(UserService.kt:45)
+ * ... 생략
+ * at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed
+ */
 @Service
 class UserService(
     //의존성 주입 완료
