@@ -5,6 +5,8 @@ plugins {
     id("io.spring.dependency-management") version "1.1.3"
     kotlin("jvm") version "1.8.22"
     kotlin("plugin.spring") version "1.8.22"
+    //jpa 플러그인을 통해 기본 생성자를 만들어준다. 리플렉션을 통해 인스턴스화 할 때 기본 생성자가 필요한 부분이 있어 엔티티 클래스에 기본 생성자를 요구한다.
+    //allOpen 플러그인도 jpa 에 적용되는 이유가 프록시 때문이다.
     kotlin("plugin.jpa") version "1.8.22"
     kotlin("kapt") version "1.8.22"
 }
